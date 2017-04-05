@@ -28,7 +28,8 @@ Find it by yourself!
 
 ```coffeescript
 'atom-text-editor.vim-mode-plus.normal-mode':
-  # ',': 'demo-mode:toggle' # I enable this while actively use demo-mode.
+  # I enable this while actively use demo-mode.[ start by `,`, prevent-auto-hide by `;`]
+  # ',': 'demo-mode:toggle'
 
   'space d': 'demo-mode:toggle'
 
@@ -37,5 +38,13 @@ Find it by yourself!
   'down': 'demo-mode:move-hover-down'
   'left': 'demo-mode:move-hover-left'
   'right': 'demo-mode:move-hover-right'
-  ';': 'demo-mode:demo-stop-or-start-auto-hide'
+
+  # I enable this while actively use demo-mode.[ start by `,`, prevent-auto-hide by `;`]
+  # ';': 'demo-mode:stop-or-start-auto-hide'
 ```
+
+# Service consumer example.
+
+demo-mode currently provide, `onWillAddItem` service which package author can to add extra information.
+
+See [vim-mode-plus](https://github.com/t9md/atom-vim-mode-plus/) project for practical use-case.

@@ -1,4 +1,4 @@
-{CompositeDisposable, Disposable, Emitter} = require 'atom'
+{CompositeDisposable, Disposable} = require 'atom'
 _ = require 'underscore-plus'
 globalState = require './global-state'
 settings = require './settings'
@@ -12,9 +12,8 @@ DemoModeCommands = [
 
 module.exports =
 class Demo
-  constructor: ({@autoHide}) ->
+  constructor: (@emitter, {@autoHide}) ->
     @workspaceElement = atom.views.getView(atom.workspace)
-    @emitter = new Emitter
     @disposables = new CompositeDisposable
     @containerMounted = false
 
@@ -39,29 +38,16 @@ class Demo
       """
 
   elementForKeystroke: ({command, keystrokes}) ->
-    commandShort = command.replace(/^vim-mode-plus:/, '')
     element = document.createElement('div')
     keystrokes = keystrokes.split(' ')
       .map (keystroke) -> keystroke.replace(/^shift-/, '')
       .join(' ')
     element.className = 'binding'
-    # kind = @getKindForCommand(command)
     element.innerHTML = """
       <span class='keystroke'>#{keystrokes}</span>
-      <span class='commmaand'>#{commandShort}</span>
+      <span class='command'>#{command}</span>
       """
-      # <span class='kind pull-right'>#{kind}</span>
     element
-
-  # getKindForCommand: (command) ->
-  #   if command.startsWith('vim-mode-plus')
-  #     command = command.replace(/^vim-mode-plus:/, '')
-  #     if command.startsWith('operator-modifier')
-  #       kind = 'op-modifier'
-  #     else
-  #       Base.getKindForCommandName(command) ? 'vmp-other'
-  #   else
-  #     'non-vmp'
 
   getContainer: ->
     if @container?
@@ -72,15 +58,22 @@ class Demo
       @container.className = 'demo-mode-container'
       @container
 
-  add: (event) ->
-    if @autoHide
-      @hideAfter(settings.get('autoHideTimeout'))
+  emitOnWillAddItem: (event) ->
+    @emitter.emit('on-will-add-item', event)
 
+  add: (event) ->
     container = @getContainer()
-    container.appendChild(@elementForKeystroke(event.binding))
+
+    item = @elementForKeystroke(event.binding)
+    @emitOnWillAddItem({item, event})
+    container.appendChild(item)
+
     if container.childElementCount > settings.get('maxKeystrokeToShow')
       container.firstElementChild.remove()
     @mountContainer() unless @containerMounted
+
+    if @autoHide
+      @hideAfter(settings.get('autoHideTimeout'))
 
   hideAfter: (timeout) ->
     clearTimeout(@autoHideTimeoutID) if @autoHideTimeoutID?
@@ -114,7 +107,6 @@ class Demo
     @unmountContainer()
 
   destroy: ->
-    console.log 'destroyed!'
     @disposables.dispose()
     @styleElement?.remove()
     @container?.remove()
