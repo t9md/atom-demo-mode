@@ -22,7 +22,7 @@ alpha
 # Keymap
 
 No keymap by default.
-Find it by yourself!
+Find it by yourself.
 
 ### Mine
 
@@ -41,6 +41,18 @@ Find it by yourself!
 
   # I enable this while actively use demo-mode.[ start by `,`, prevent-auto-hide by `;`]
   # ';': 'demo-mode:stop-or-start-auto-hide'
+```
+
+# Style customization example
+
+```less
+.demo-mode-container {
+  min-width: 30em;
+  font-family: "Ricty";
+  .keystroke {
+    font-size: 1.5em;
+  }
+}
 ```
 
 # Service consumer example.
