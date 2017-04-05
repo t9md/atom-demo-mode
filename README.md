@@ -1,8 +1,10 @@
 # atom-demo-mode
 
-- This package provider small hover indicator which display keystroke and dispatched command.
-- Intended to be used for atom package author capture GIF animation with keystroke displayed.
-- Initially created for [vim-mode-plus](https://atom.io/packages/vim-mode-plus) I'm maintaining and extracted to make this generally available.
+- Show keystroke and command on hover indicator.
+- Intended to be used for atom package author to create explanatory GIF animation.
+- Initially created for [vim-mode-plus](https://atom.io/packages/vim-mode-plus) and extracted to make this generally available.
+
+![demo-mode](https://raw.githubusercontent.com/t9md/t9md/d582c61e8a6a743683ef2f8e5034e413394e5292/img/atom-demo-mode.gif)
 
 # Development State
 
