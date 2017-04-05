@@ -2,7 +2,7 @@
   "name": "demo-mode",
   "main": "./lib/main",
   "version": "0.0.0",
-  "description": "Show command dispatch as hover indicator / provide service for special integration",
+  "description": "Show command dispatch at hover indicator / also provide service for special integration",
   "license": "MIT",
   "private": true,
   "repository": "https://github.com/t9md/atom-demo-mode",
