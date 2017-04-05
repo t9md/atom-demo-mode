@@ -1,4 +1,4 @@
-# atom-demo-mode
+# demo-mode
 
 - Show keystroke and command on hover indicator.
 - Intended to be used for atom package author to create explanatory GIF animation.
