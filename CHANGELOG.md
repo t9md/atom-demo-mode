@@ -1,2 +1,2 @@
-# 0.0.0 WIP
-- Initial version released.
+# 0.1.0:
+- Initial version.
