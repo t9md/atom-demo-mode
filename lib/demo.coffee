@@ -58,7 +58,7 @@ class Demo
       @container
 
   emitOnWillAddItem: (event) ->
-    @state.emitter.emit('on-will-add-item', event)
+    @state.emitter.emit('will-add-item', event)
 
   add: (event) ->
     container = @getContainer()
@@ -78,7 +78,7 @@ class Demo
     clearTimeout(@autoHideTimeoutID) if @autoHideTimeoutID?
     hideCallback = =>
       @autoHideTimeoutID = null
-      @unmountContainer()
+      @removeHover()
 
     @autoHideTimeoutID = setTimeout(hideCallback, timeout)
 
@@ -87,10 +87,11 @@ class Demo
     @workspaceElement.appendChild(@getContainer())
     @containerMounted = true
 
-  unmountContainer: ->
+  removeHover: ->
     @container?.remove()
     @container = null
     @containerMounted = false
+    @state.emitter.emit('did-remove-hover')
 
   stopOrStartAutoHide: ->
     if @autoHide
@@ -103,12 +104,13 @@ class Demo
 
   clear: ->
     clearTimeout(@autoHideTimeoutID) if @autoHideTimeoutID?
-    @unmountContainer()
+    @removeHover()
 
   destroy: ->
     @disposables.dispose()
     @styleElement?.remove()
-    @container?.remove()
+    @removeHover()
+    @containerMounted = null
 
   moveHover: (direction) ->
     switch direction

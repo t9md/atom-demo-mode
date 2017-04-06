@@ -28,9 +28,11 @@ module.exports =
   #     * `event`: original event passed on `atom.keymap.onDidMatchBinding`.
   #
   # Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
-  onWillAddItem: (fn) -> @emitter.on('on-will-add-item', fn)
-  onDidStart: (fn) -> @emitter.on('on-did-start', fn)
-  onDidStop: (fn) -> @emitter.on('on-did-stop', fn)
+  onWillAddItem: (fn) -> @emitter.on('will-add-item', fn)
+
+  onDidStart: (fn) -> @emitter.on('did-start', fn)
+  onDidStop: (fn) -> @emitter.on('did-stop', fn)
+  onDidRemoveHover: (fn) -> @emitter.on('did-remove-hover', fn)
 
   provideDemoMode: ->
     onWillAddItem: @onWillAddItem.bind(this)
@@ -38,15 +40,21 @@ module.exports =
     onDidStop: @onDidStop.bind(this)
 
   deactivate: ->
+    @stop() if @demo?
     @disposables.dispose()
 
   toggle: (options) ->
-    Demo ?= require './demo'
-
     if @demo?
-      @demo.destroy()
-      @demo = null
-      @emitter.emit('on-did-stop')
+      @stop()
     else
-      @demo = new Demo(@state, options)
-      @emitter.emit('on-did-start')
+      @start(options)
+
+  start: (options) ->
+    Demo ?= require './demo'
+    @demo = new Demo(@state, options)
+    @emitter.emit('did-start')
+
+  stop: ->
+    @demo.destroy()
+    @demo = null
+    @emitter.emit('did-stop')
