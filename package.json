@@ -1,7 +1,7 @@
 {
   "name": "demo-mode",
   "main": "./lib/main",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Show command dispatch at hover indicator / also provide service for special integration",
   "license": "MIT",
   "private": true,
