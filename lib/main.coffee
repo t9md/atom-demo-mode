@@ -9,8 +9,9 @@ module.exports =
     @demo = null
     @disposables = new CompositeDisposable
     @emitter = new Emitter
+    @state = {@emitter}
 
-    @disposables.add atom.commands.add 'atom-text-editor:not([mini])',
+    @disposables.add atom.commands.add 'atom-workspace',
       'demo-mode:toggle': => @toggle(autoHide: true)
       'demo-mode:toggle-without-auto-hide': => @toggle(autoHide: false)
       'demo-mode:stop-or-start-auto-hide': => @demo?.stopOrStartAutoHide()
@@ -47,5 +48,5 @@ module.exports =
       @demo = null
       @emitter.emit('on-did-stop')
     else
-      @demo = new Demo(@emitter, options)
+      @demo = new Demo(@state, options)
       @emitter.emit('on-did-start')

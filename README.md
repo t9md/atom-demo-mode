@@ -21,7 +21,7 @@ alpha
 - `demo-mode:move-hover-left`: Move hover, position is remembered until deactivate package.
 - `demo-mode:move-hover-right`: Move hover, position is remembered until deactivate package.
 
-# Keymap
+# Keymap( keymap.cson )
 
 No keymap by default.
 Find it by yourself.

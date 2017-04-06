@@ -9,6 +9,12 @@
   "engines": {
     "atom": "^1.15.0"
   },
+  "activationCommands": {
+    "atom-workspace": [
+      "demo-mode:toggle",
+      "demo-mode:toggle-without-auto-hide"
+    ]
+  },
   "dependencies": {
     "underscore-plus": "^1.6.6"
   },

@@ -1,6 +1,5 @@
 {CompositeDisposable, Disposable} = require 'atom'
 _ = require 'underscore-plus'
-globalState = require './global-state'
 settings = require './settings'
 
 DemoModeCommands = [
@@ -12,13 +11,13 @@ DemoModeCommands = [
 
 module.exports =
 class Demo
-  constructor: (@emitter, {@autoHide}) ->
+  constructor: (@state, {@autoHide}) ->
     @workspaceElement = atom.views.getView(atom.workspace)
     @disposables = new CompositeDisposable
     @containerMounted = false
 
-    globalState.marginTopInEm ?= settings.get('initialMarginTopInEm')
-    globalState.marginLeftInEm ?= settings.get('initialMarginLeftInEm')
+    @state.marginTopInEm ?= settings.get('initialMarginTopInEm')
+    @state.marginLeftInEm ?= settings.get('initialMarginLeftInEm')
 
     @workspaceElement.classList.add('demo-mode-active')
     @disposables.add new Disposable =>
@@ -33,8 +32,8 @@ class Demo
     @styleElement = document.createElement 'style'
     document.head.appendChild(@styleElement)
     @styleElement.sheet.addRule '.demo-mode-container', """
-      margin-top: #{globalState.marginTopInEm}em;
-      margin-left: #{globalState.marginLeftInEm}em;
+      margin-top: #{@state.marginTopInEm}em;
+      margin-left: #{@state.marginLeftInEm}em;
       """
 
   elementForKeystroke: ({command, keystrokes}) ->
@@ -59,7 +58,7 @@ class Demo
       @container
 
   emitOnWillAddItem: (event) ->
-    @emitter.emit('on-will-add-item', event)
+    @state.emitter.emit('on-will-add-item', event)
 
   add: (event) ->
     container = @getContainer()
@@ -113,8 +112,8 @@ class Demo
 
   moveHover: (direction) ->
     switch direction
-      when 'up' then globalState.marginTopInEm -= 1
-      when 'down' then globalState.marginTopInEm += 1
-      when 'left' then globalState.marginLeftInEm -= 1
-      when 'right' then globalState.marginLeftInEm += 1
+      when 'up' then @state.marginTopInEm -= 1
+      when 'down' then @state.marginTopInEm += 1
+      when 'left' then @state.marginLeftInEm -= 1
+      when 'right' then @state.marginLeftInEm += 1
     @applyMargin()
