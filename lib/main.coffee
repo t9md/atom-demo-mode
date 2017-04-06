@@ -29,15 +29,17 @@ module.exports =
   #
   # Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
   onWillAddItem: (fn) -> @emitter.on('will-add-item', fn)
-
   onDidStart: (fn) -> @emitter.on('did-start', fn)
   onDidStop: (fn) -> @emitter.on('did-stop', fn)
   onDidRemoveHover: (fn) -> @emitter.on('did-remove-hover', fn)
 
   provideDemoMode: ->
-    onWillAddItem: @onWillAddItem.bind(this)
-    onDidStart: @onDidStart.bind(this)
-    onDidStop: @onDidStop.bind(this)
+    {
+      onWillAddItem: @onWillAddItem.bind(this)
+      onDidStart: @onDidStart.bind(this)
+      onDidStop: @onDidStop.bind(this)
+      onDidRemoveHover: @onDidRemoveHover.bind(this)
+    }
 
   deactivate: ->
     @stop() if @demo?
