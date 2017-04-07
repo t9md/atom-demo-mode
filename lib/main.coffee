@@ -42,6 +42,7 @@ module.exports =
     }
 
   deactivate: ->
+    @state.styleElement?.remove()
     @stop() if @demo?
     @disposables.dispose()
 

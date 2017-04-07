@@ -28,10 +28,10 @@ class Demo
       @add(event)
 
   applyMargin: ->
-    @styleElement?.remove()
-    @styleElement = document.createElement 'style'
-    document.head.appendChild(@styleElement)
-    @styleElement.sheet.addRule '.demo-mode-container', """
+    @state.styleElement?.remove()
+    @state.styleElement = document.createElement 'style'
+    document.head.appendChild(@state.styleElement)
+    @state.styleElement.sheet.addRule '.demo-mode-container', """
       margin-top: #{@state.marginTopInEm}em;
       margin-left: #{@state.marginLeftInEm}em;
       """
@@ -78,7 +78,7 @@ class Demo
     clearTimeout(@autoHideTimeoutID) if @autoHideTimeoutID?
     hideCallback = =>
       @autoHideTimeoutID = null
-      @removeHover()
+      @removeHover(fadeout: true)
 
     @autoHideTimeoutID = setTimeout(hideCallback, timeout)
 
@@ -87,8 +87,14 @@ class Demo
     @workspaceElement.appendChild(@getContainer())
     @containerMounted = true
 
-  removeHover: ->
-    @container?.remove()
+  removeHover: ({fadeout}={}) ->
+    return unless @containerMounted
+    if fadeout
+      container = @container
+      container.classList.add('fadeout')
+      setTimeout((-> container.remove()), 1000)
+    else
+      @container.remove()
     @container = null
     @containerMounted = false
     @state.emitter.emit('did-remove-hover')
@@ -99,7 +105,7 @@ class Demo
       clearTimeout(@autoHideTimeoutID) if @autoHideTimeoutID?
       @autoHide = false
     else
-      @clear()
+      @removeHover(fadeout: true)
       @autoHide = true
 
   clear: ->
@@ -108,7 +114,6 @@ class Demo
 
   destroy: ->
     @disposables.dispose()
-    @styleElement?.remove()
     @removeHover()
     @containerMounted = null
 

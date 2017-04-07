@@ -1,6 +1,11 @@
 @import "syntax-variables";
 @import "ui-variables";
 
+@keyframes demo-mode-fadeout {
+    0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 .demo-mode-container {
   z-index: 2147483647;
   position: absolute;
@@ -32,5 +37,12 @@
     color: @text-color-warning;
   }
   .command {
+  }
+
+  &.fadeout {
+    animation-name: demo-mode-fadeout;
+    animation-fill-mode: forwards;
+    animation-duration: 1.0s;
+    animation-iteration-count: 1;
   }
 }
