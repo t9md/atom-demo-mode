@@ -1,3 +1,10 @@
+# 0.3.0:
+- New: Now hover indicator is movable by mousedrag.
+- Maintenance: Convert CoffeeScript to JavaScript.
+- Breaking: Configuration parameter removed and addd.
+  - Added: `initialTopInPixel`(default `50`), `initialLeftInPixel`(default `50`)
+  - Removed: `initialMarginTopInEm`, `initialMarginLeftInEm`
+  
 # 0.2.1:
 - UX: Fadeout animation when hover indicator disappear.
 

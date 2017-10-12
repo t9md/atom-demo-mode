@@ -20,6 +20,7 @@ alpha
 - `demo-mode:move-hover-down`: Move hover, position is remembered until deactivate package.
 - `demo-mode:move-hover-left`: Move hover, position is remembered until deactivate package.
 - `demo-mode:move-hover-right`: Move hover, position is remembered until deactivate package.
+- Also you can move hover by mouse drag.
 
 # Keymap( keymap.cson )
 
@@ -30,9 +31,6 @@ Find it by yourself.
 
 ```coffeescript
 'atom-text-editor.vim-mode-plus.normal-mode':
-  # I enable this while actively use demo-mode.[ start by `,`, prevent-auto-hide by `;`]
-  # ',': 'demo-mode:toggle'
-
   'space d': 'demo-mode:toggle'
 
 'atom-workspace.demo-mode-active atom-text-editor:not([mini])':
@@ -40,9 +38,6 @@ Find it by yourself.
   'down': 'demo-mode:move-hover-down'
   'left': 'demo-mode:move-hover-left'
   'right': 'demo-mode:move-hover-right'
-
-  # I enable this while actively use demo-mode.[ start by `,`, prevent-auto-hide by `;`]
-  # ';': 'demo-mode:stop-or-start-auto-hide'
 ```
 
 # Style customization example
