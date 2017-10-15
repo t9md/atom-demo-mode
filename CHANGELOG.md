@@ -1,3 +1,6 @@
+# 0.4.1:
+- Fix: Fix incorrect `shift-` modifier removal.
+
 # 0.4.0:
 - New: added following command
   - `demo-mode:toggle-auto-hide`
