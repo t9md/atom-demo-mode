@@ -13,31 +13,38 @@ alpha
 # Commands
 
 - `demo-mode:toggle`: Start or stop, auto-hide based on `autoHideTimeout` setting.
-- `demo-mode:toggle-without-auto-hide` Start or stop, no auto-hide. So need to `demo-mode:clear` or stop by `toggle`.
-- `demo-mode:stop-or-start-auto-hide`: Prevent auto-hidden temporarily or re-start auto-hide, useful when you need manual control for auto-hide.
-- `demo-mode:clear`: Clear currently displayed keystrokes, you don't need this in most case.
+- `demo-mode:toggle-auto-hide:`: Toggle `autoHide` config value via command, also apply new value to currently displayed hover.
+- `demo-mode:clear`: Clear(= fadeout ) displayed keystrokes.
 - `demo-mode:move-hover-up`: Move hover, position is remembered until deactivate package.
 - `demo-mode:move-hover-down`: Move hover, position is remembered until deactivate package.
 - `demo-mode:move-hover-left`: Move hover, position is remembered until deactivate package.
 - `demo-mode:move-hover-right`: Move hover, position is remembered until deactivate package.
 - Also you can move hover by mouse drag.
 
+# Mouse
+
+- Can move hover by drag.
+- Can toggle-auto-hide by double click.
+
 # Keymap( keymap.cson )
 
 No keymap by default.
 Find it by yourself.
 
-### Mine
+### Example keymap
 
 ```coffeescript
 'atom-text-editor.vim-mode-plus.normal-mode':
-  'space d': 'demo-mode:toggle'
+  'space d s': 'demo-mode:toggle'
 
 'atom-workspace.demo-mode-active atom-text-editor:not([mini])':
   'up': 'demo-mode:move-hover-up'
   'down': 'demo-mode:move-hover-down'
   'left': 'demo-mode:move-hover-left'
   'right': 'demo-mode:move-hover-right'
+
+  'space d !': 'demo-mode:toggle-auto-hide'
+  'space d d': 'demo-mode:clear'
 ```
 
 # Style customization example

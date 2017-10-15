@@ -10,17 +10,25 @@
   z-index: 2147483647;
   position: absolute;
   min-width: 22em;
+  padding: 0.3em 1em;
+
   color: @text-color-highlight;
   background-color: @base-background-color;
   border-radius: @component-border-radius;
-  box-shadow: 0 0 1px @syntax-text-color;
-  padding: 0.3em 1em;
 
+  border-style: solid;
+  border-width: 1.5px;
+  border-color: @text-color-highlight;
+
+  &.auto-hide {
+    border-color: @base-background-color;
+    box-shadow: 0px 0px 3px @syntax-text-color;
+  }
   // Setting margin manually is not recommended, since it's conflict demo:move-hover command
   // So don't do following.
   // margin-top: -2.8em;
   // margin-left: -0.3em;
-  
+
   // .keystroke-container {
   //
   // }
